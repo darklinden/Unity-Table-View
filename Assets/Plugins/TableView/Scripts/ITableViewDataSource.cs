@@ -21,44 +21,19 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-
-public class TableViewCell : MonoBehaviour
+namespace UITableView
 {
-    public string reuseIdentifier;
-
-    private void Awake()
+    public interface ITableViewDataSource
     {
-        rect = GetComponent<RectTransform>();
-    }
+        public int GetNumberOfSections(TableView tableView);
+        public int GetNumberOfRows(TableView tableView, int section);
 
-    private RectTransform rect;
-    public RectTransform Rect {
-        get {
-            if (rect == null) {
-                rect = GetComponent<RectTransform>();
-            }
+        public float GetHeaderHeight(TableView tableView, int section);
+        public float GetRowHeight(TableView tableView, int section, int row);
+        public float GetRowSpacing(TableView tableView, int section);
 
-            return rect;
-        }
-    }
-
-    public int Section {
-        get;
-        set;
-    }
-
-    public int Row {
-        get;
-        set;
-    }
-
-    public void SetIndex (int section, int row)
-    {
-        Section = section;
-        Row = row;
+        public TableViewCell GetSectionHeader(TableView tableView, int section);
+        public TableViewCell GetCell(TableView tableView, int section, int row);
     }
 }

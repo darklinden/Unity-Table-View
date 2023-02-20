@@ -21,17 +21,33 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public abstract class AbstractTableViewDataSource : MonoBehaviour
+namespace UITableView
 {
-    public abstract int GetNumberOfSections(TableView tableView);
-    public abstract int GetNumberOfRows(TableView tableView, int section);
+    public class TableViewCell : MonoBehaviour
+    {
+        public string reuseIdentifier;
 
-    public abstract float GetHeaderHeight(TableView tableView, int section);
-    public abstract float GetRowHeight(TableView tableView, int section, int row);
-    public abstract float GetRowSpacing(TableView tableView, int section);
+        private void Awake()
+        {
+            m_Rect = GetComponent<RectTransform>();
+        }
 
-    public abstract TableViewCell GetSectionHeader(TableView tableView, int section);
-    public abstract TableViewCell GetCell(TableView tableView, int section, int row);
+        private RectTransform m_Rect;
+        public RectTransform Rect => m_Rect != null ? m_Rect : m_Rect = GetComponent<RectTransform>();
+
+        public int Section { get; set; }
+
+        public int Row { get; set; }
+
+        public void SetIndex(int section, int row)
+        {
+            Section = section;
+            Row = row;
+        }
+    }
 }
